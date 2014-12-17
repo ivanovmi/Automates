@@ -1,5 +1,3 @@
-__author__ = 'michael'
-
 import pyparsing
 
 f = open("pars.txt", 'r')

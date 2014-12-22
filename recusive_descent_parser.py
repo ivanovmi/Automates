@@ -10,8 +10,11 @@ def create_string():
                   pyparsing.Literal("(") + number + pyparsing.Literal("*") + variable_of_function + \
                   pyparsing.Literal("+") + number + pyparsing.Literal(")")
 
+    input_file=open("input", "r")
+    input_function=input_file.readline()
     # input_function=raw_input("Enter the input_function: ")
-    input_function = "(5*x+4)/(4*x+5)"
+    # input_function = "(5*x+43)/(4*x+9)"
+    input_file.close()
     return pars_string.parseString(input_function)
 
 

@@ -2,18 +2,16 @@ import pyparsing
 
 
 def create_string():
-    variable_of_function = pyparsing.Word(pyparsing.alphas)
+    name_of_array = pyparsing.Word(pyparsing.alphas)
     number = pyparsing.Word(pyparsing.nums)
 
-    pars_string = pyparsing.Literal("(") + number + pyparsing.Literal("*") + variable_of_function + \
-                  pyparsing.Literal("+") + number + pyparsing.Literal(")") + pyparsing.Literal("/") + \
-                  pyparsing.Literal("(") + number + pyparsing.Literal("*") + variable_of_function + \
-                  pyparsing.Literal("+") + number + pyparsing.Literal(")")
 
-    input_file=open("input", "r")
-    input_function=input_file.readline()
-    # input_function=raw_input("Enter the input_function: ")
-    # input_function = "(5*x+43)/(4*x+9)"
+    pars_string = name_of_array + pyparsing.Literal("[") + number + pyparsing.Literal("]") + pyparsing.Literal(
+        "[") + number + pyparsing.Literal("]")
+
+    input_file = open("input", "r")
+    input_function = input_file.readline()
+
     input_file.close()
     return pars_string.parseString(input_function)
 

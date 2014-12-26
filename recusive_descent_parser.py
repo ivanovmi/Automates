@@ -5,32 +5,28 @@ import pyparsing
 
 def create_string():
     f = open("pars.txt", 'r')
-    count = int(f.readline())
-    i = count
+
     variable = pyparsing.Word(pyparsing.alphas + pyparsing.nums)
-    fraction = pyparsing.nums[1] + pyparsing.Literal("/") + variable
-    pars_string = pyparsing.nums[1]
-    while count != 0:
-        pars_string = pars_string + pyparsing.Literal("+") + fraction
-        count -= 1
+    NaturalNum = pyparsing.Word(pyparsing.nums)
+    power = variable + pyparsing.Literal("^") + pyparsing.Literal("(") + pyparsing.nums[2] + \
+            pyparsing.Literal("*") + NaturalNum + pyparsing.Literal(")")
+    pars_string = power + pyparsing.Literal("+") + power
 
     input_string = f.readline()
-    print input_string
     f.close()
-    print pars_string.parseString(input_string)
-    return i, pars_string.parseString(input_string)
+    return pars_string.parseString(input_string)
 
 
-def generate_of_run_file(count):
+
+def generate_of_run_file():
     file_for_running.write("from __future__ import division\n")
-    file_for_running.write("count = %s\n" % count)
-    file_for_running.write("variable=[]\n")
-    file_for_running.write("while count != 0:\n")
-    file_for_running.write("\tvariable.append(int(raw_input('Enter the value of variable: ')))\n")
-    file_for_running.write("\tcount -= 1\n")
-    file_for_running.write("print '%s' % str(sum(variable)+reduce(lambda x,y: x*y, variable))+'/%s' % str(reduce(lambda x,y: x*y, variable))")
+    file_for_running.write("x = int(raw_input('Enter the value of X: '))\n")
+    file_for_running.write("y = int(raw_input('Enter the value of Y: '))\n")
+    file_for_running.write("var1 = %s\n" % create_string()[5])
+    file_for_running.write("var2 = %s\n" % create_string()[13])
+    file_for_running.write("\n")
+    file_for_running.write("print x**(2*var1)+y**(2*var2)")
 
 file_for_running = open("run_me.py", "w")
-count = create_string()[0]
-generate_of_run_file(count)
+generate_of_run_file()
 file_for_running.close()
